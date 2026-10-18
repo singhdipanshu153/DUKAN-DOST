@@ -1,1 +1,140 @@
-
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b35">
+<title>Dukaan Dost — Small Business Tools</title>
+<style>
+:root{--green:#123b35;--mint:#dff5e9;--paper:#f6f8f5;--ink:#17211f;--muted:#5b6a65;--line:#dce5df;--white:#fff;--gold:#f5c45b}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.45}
+header{background:var(--green);color:white;padding:26px 18px 30px} .wrap{max-width:1050px;margin:auto}
+nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}.brand{font-weight:850;font-size:1.15rem;letter-spacing:.2px}.tag{font-size:.82rem;color:#d6ebe2}
+h1{font-size:clamp(1.8rem,5vw,3.2rem);line-height:1.08;margin:0 0 12px;max-width:760px}header p{max-width:680px;color:#e3f1eb;margin:0 0 18px}.pill{display:inline-block;background:#ffffff1c;border:1px solid #ffffff40;padding:6px 10px;border-radius:999px;font-size:.82rem}
+main{padding:24px 16px 50px}.intro{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.intro span{background:var(--mint);padding:7px 11px;border-radius:9px;font-size:.88rem}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:white;border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:0 5px 18px #19372a08}.card h2{font-size:1.15rem;margin:0 0 6px}.card p{color:var(--muted);margin:0 0 14px;font-size:.94rem}.wide{grid-column:1/-1}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:.9rem;font-weight:700}.field input,.field textarea,.field select{width:100%;padding:11px 12px;border:1px solid #cbd7cf;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}textarea{min-height:85px;resize:vertical}
+.btn{border:0;border-radius:10px;background:var(--green);color:#fff;font:inherit;font-weight:750;padding:11px 15px;cursor:pointer;display:inline-flex;justify-content:center;align-items:center;text-decoration:none}.btn.secondary{background:#e7f1eb;color:var(--green)}.btn.gold{background:var(--gold);color:#342700}.btn:focus,input:focus,textarea:focus,select:focus{outline:3px solid #87cdb0;outline-offset:2px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.output{background:#f2f7f3;border:1px dashed #b9d1c2;padding:13px;border-radius:11px;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:12px;min-height:42px}.small{font-size:.83rem;color:var(--muted)}.price{font-weight:850;font-size:1.6rem}.divider{height:1px;background:var(--line);margin:15px 0}.notice{border-left:4px solid var(--gold);padding:10px 12px;background:#fff9e9;border-radius:6px;font-size:.9rem}
+footer{padding:25px 16px;background:#eaf0eb;color:#52625b;font-size:.86rem}.hidden{display:none}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}header{padding-top:20px}.card{padding:16px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<nav><div class="brand">🧾 Dukaan Dost</div><span class="tag">Free tools for small businesses</span></nav>
+<span class="pill">Free tools • English • Mobile friendly</span>
+<h1>Manage your business, without the hassle.</h1>
+<p>Create bills, write payment reminders, estimate profit, and message customers on WhatsApp. Basic tools are free.</p>
+<a class="btn gold" href="#tools">Try the tools ↓</a>
+</div></header>
+<main class="wrap" id="tools">
+<div class="intro"><span>✓ No account needed</span><span>✓ Data stays on this device</span><span>✓ Copy and send on WhatsApp</span></div>
+<div class="grid">
+<section class="card">
+<h2>🧮 Simple Bill Maker</h2><p>Enter customer and item details to create a bill. This is not tax invoice software.</p>
+<div class="field"><label for="shop">Business name</label><input id="shop" placeholder="e.g. Sharma General Store"></div>
+<div class="field"><label for="customer">Customer name (optional)</label><input id="customer" placeholder="Customer name"></div>
+<div class="field"><label for="item">Item / service</label><input id="item" placeholder="e.g. 2 kg rice"></div>
+<div class="field"><label for="qty">Quantity</label><input id="qty" type="number" min="0.01" step="any" value="1"></div>
+<div class="field"><label for="rate">Rate (₹)</label><input id="rate" type="number" min="0" step="0.01" placeholder="100"></div>
+<div class="actions"><button class="btn" onclick="makeBill()">Create bill</button><button class="btn secondary" onclick="copyText('billOut')">Copy bill</button></div>
+<div id="billOut" class="output" aria-live="polite">Your bill will appear here.</div>
+</section>
+<section class="card">
+<h2>📲 Payment reminder</h2><p>Write a polite payment reminder and open it in WhatsApp. Review the message before sending.</p>
+<div class="field"><label for="debtor">Customer name</label><input id="debtor" placeholder="e.g. Amit"></div>
+<div class="field"><label for="amount">Outstanding amount (₹)</label><input id="amount" type="number" min="0" step="0.01" placeholder="500"></div>
+<div class="field"><label for="due">Due date (optional)</label><input id="due" type="date"></div>
+<div class="actions"><button class="btn" onclick="makeReminder()">Create reminder</button><button class="btn secondary" onclick="openWhatsApp('reminderOut')">Open WhatsApp</button></div>
+<div id="reminderOut" class="output" aria-live="polite">Your payment reminder will appear here.</div>
+</section>
+<section class="card">
+<h2>💰 Profit calculator</h2><p>Estimate gross profit per item using cost and selling price.</p>
+<div class="field"><label for="cost">Cost per item (₹)</label><input id="cost" type="number" min="0" step="0.01" placeholder="60"></div>
+<div class="field"><label for="sale">Selling price per item (₹)</label><input id="sale" type="number" min="0" step="0.01" placeholder="85"></div>
+<div class="field"><label for="units">Number of items sold</label><input id="units" type="number" min="0" step="1" value="1"></div>
+<div class="actions"><button class="btn" onclick="calcProfit()">Calculate profit</button></div>
+<div id="profitOut" class="output" aria-live="polite">Your result will appear here.</div>
+<p class="small">Rent, salaries, taxes, wastage, and other expenses are not included in this estimate.</p>
+</section>
+<section class="card">
+<h2>📝 WhatsApp offer message</h2><p>Write your business offer and create a message you can send to customers.</p>
+<div class="field"><label for="offerShop">Business name</label><input id="offerShop" placeholder="Meri Dukaan"></div>
+<div class="field"><label for="offer">Offer / update</label><textarea id="offer" placeholder="Special offer on fresh vegetables today..."></textarea></div>
+<div class="actions"><button class="btn" onclick="makeOffer()">Create message</button><button class="btn secondary" onclick="openWhatsApp('offerOut')">Open WhatsApp</button></div>
+<div id="offerOut" class="output" aria-live="polite">Your offer message will appear here.</div>
+</section>
+<section class="card wide">
+<h2>❤️ Support Dukaan Dost</h2><p>These free tools are built and maintained for small businesses. If they helped you, you can optionally support the project. Payment is completely voluntary.</p>
+<div class="price">₹19 <span class="small">one-time support</span></div>
+<div class="field"><label for="upi">Set your UPI ID here (site owner)</label><input id="upi" placeholder="yourname@upi"></div>
+<div class="field"><label for="payName">Payment recipient name (optional)</label><input id="payName" placeholder="Your name / business"></div>
+<div class="actions"><button class="btn gold" onclick="paySupport()">Support with ₹19 via UPI</button><button class="btn secondary" onclick="savePaymentSettings()">Save UPI details</button></div>
+<div id="payOut" class="output" aria-live="polite">The site owner must set a UPI ID. The button will try to open a UPI app; this website cannot verify payment.</div>
+<div class="notice" style="margin-top:12px"><strong>Owner setup:</strong> Enter your UPI ID in this box, then test before publishing. This demo saves settings in the current browser. Opening a UPI app does not prove that a payment succeeded.</div>
+</section>
+<section class="card wide">
+<h2>🔐 Privacy and limitations</h2>
+<p>This starter has no account, cloud sync, or server. Entered details are processed in this browser/device. Saved UPI settings may be lost if browser data is cleared. Copy bills into your own records.</p>
+<p class="small">Dukaan Dost does not receive or verify payments. Confirm UPI payments in your bank or UPI app. Do not rely on payment screenshots alone. Do not store or share customer private data without consent.</p>
+</section>
+</div>
+</main>
+<footer><div class="wrap">Dukaan Dost — independent starter demo. Verify your business details, privacy notice, and payment setup before launching publicly.</div></footer>
+<script>
+const $ = id => document.getElementById(id);
+const money = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(n);
+function makeBill(){
+ const shop=$('shop').value.trim()||'Business';
+ const customer=$('customer').value.trim();
+ const item=$('item').value.trim();
+ const qty=Number($('qty').value), rate=Number($('rate').value);
+ if(!item || !Number.isFinite(qty)||qty<=0||!Number.isFinite(rate)||rate<0){$('billOut').textContent='Enter an item, valid quantity, and rate.';return}
+ const total=qty*rate;
+ $('billOut').textContent=`${shop}\n${new Date().toLocaleDateString('en-IN')}\n${customer?'Customer: '+customer+'\n':''}Item: ${item}\nQuantity: ${qty}\nRate: ${money(rate)}\nTOTAL: ${money(total)}\n\nThank you!`;
+}
+function makeReminder(){
+ const name=$('debtor').value.trim()||'Hello';
+ const amount=Number($('amount').value);
+ if(!Number.isFinite(amount)||amount<0){$('reminderOut').textContent='Enter a valid outstanding amount.';return}
+ const due=$('due').value;
+ $('reminderOut').textContent=`Hello ${name} ji 🙏\nAccording to our records, a payment of ₹${amount.toLocaleString('en-IN')} is outstanding${due?' (due date: '+due+')':''}. Please pay when convenient. If you have already paid, please ignore this message. Thank you!`;
+}
+function calcProfit(){
+ const c=Number($('cost').value),s=Number($('sale').value),u=Number($('units').value);
+ if(!Number.isFinite(c)||!Number.isFinite(s)||!Number.isFinite(u)||c<0||s<0||u<0){$('profitOut').textContent='Enter valid cost, selling price, and quantity.';return}
+ const p=(s-c)*u;
+ $('profitOut').textContent=`Gross profit per item: ${money(s-c)}\nEstimated total gross profit: ${money(p)}\nGross margin: ${s>0?((s-c)/s*100).toFixed(1)+'%':'N/A'}`;
+}
+function makeOffer(){
+ const shop=$('offerShop').value.trim()||'Our Business';
+ const offer=$('offer').value.trim();
+ if(!offer){$('offerOut').textContent='Enter an offer or update.';return}
+ $('offerOut').textContent=`Hello! 👋\n${shop} se update:\n${offer}\nVisit us and thank you for your support!`;
+}
+async function copyText(id){
+ const t=$(id).textContent;
+ try{await navigator.clipboard.writeText(t); alert('Text copied.')}catch(e){alert('Could not copy automatically. Please select and copy the text manually.')}
+}
+function openWhatsApp(id){
+ const t=$(id).textContent;
+ if(!t||t.includes('yahan')){alert('Create a message first.');return}
+ window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank','noopener');
+}
+function savePaymentSettings(){
+ const upi=$('upi').value.trim(), name=$('payName').value.trim();
+ if(!/^[\w.\-]{2,256}@[a-zA-Z][a-zA-Z0-9.\-_]{1,63}$/.test(upi)){ $('payOut').textContent='Enter a valid UPI ID, e.g. name@upi.';return}
+ localStorage.setItem('dd_upi',upi);localStorage.setItem('dd_payName',name);
+ $('payOut').textContent='UPI details have been saved in this browser. For a public website, configure and test the payment details before launch.';
+}
+function paySupport(){
+ const upi=$('upi').value.trim()||localStorage.getItem('dd_upi')||'';
+ const name=$('payName').value.trim()||localStorage.getItem('dd_payName')||'Dukaan Dost';
+ if(!/^[\w.\-]{2,256}@[a-zA-Z][a-zA-Z0-9.\-_]{1,63}$/.test(upi)){ $('payOut').textContent='The site owner must enter a valid UPI ID first.';return}
+ const url='upi://pay?pa='+encodeURIComponent(upi)+'&pn='+encodeURIComponent(name)+'&am=19.00&cu=INR&tn='+encodeURIComponent('Dukaan Dost voluntary support');
+ $('payOut').textContent='Requesting to open a UPI app. Verify the recipient and ₹19 amount before completing payment.';
+ window.location.href=url;
+}
+(function init(){const u=localStorage.getItem('dd_upi'),n=localStorage.getItem('dd_payName');if(u)$('upi').value=u;if(n)$('payName').value=n;})();
+</script>
+</body>
+</html>
